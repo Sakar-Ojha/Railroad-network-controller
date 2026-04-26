@@ -1,0 +1,27 @@
+# Define the C++ compiler and flags
+CXX = g++
+CXXFLAGS = -Wall -Wextra -std=c++17
+
+# Define the target executable name
+TARGET = myprogram
+
+# List the source files
+SOURCES = mytest.cpp  railroad.cpp
+
+# Automatically generate object file names from source files
+OBJECTS = $(SOURCES:.cpp=.o)
+
+# Default target: builds the executable
+all: $(TARGET)
+
+# Rule for building the executable from object files
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
+
+# Pattern rule for compiling .cpp files into .o files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean target: removes generated files
+clean:
+	rm -f $(TARGET) $(OBJECTS)
